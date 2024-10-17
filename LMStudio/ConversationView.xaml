@@ -1,0 +1,99 @@
+﻿<UserControl x:Class="LMStudio.ConversationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LMStudio"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="460">
+
+    <UserControl.Resources>
+        <local:StringFormatConverter x:Key="StringFormatConverter"/>
+
+        <!--Me under you-->
+        <DataTemplate x:Key="A">
+            <Grid Margin="30, 30, 5, 0"
+                      local:GridUtils.RowDefinitions=",,">
+                <Rectangle Fill="#03a9F4"
+                           Grid.RowSpan="2"/>
+                <TextBox Text="{Binding Path=Text}"
+                             Style="{StaticResource TextBlockStyle}" Background="#03a9F4"/>
+                <TextBlock Text="{Binding Path=Timestamp, Converter={StaticResource StringFormatConverter}, ConverterParameter='ddd, HH:mm'}"
+                             Style="{StaticResource TimestampStyle}"
+                             Grid.Row="1"/>
+                <Path Data="m 0,0 l 16,0 l 0,16 l -16,-16"
+                    Fill="#03a9F4"
+                    Margin="0,-1,5,0"           
+                    HorizontalAlignment="Right"
+                    Grid.Row="2"/>
+            </Grid>
+        </DataTemplate>
+        <!--You under me-->
+        <DataTemplate x:Key="B">
+            <Grid Margin="5, 0, 30, 0" 
+                      local:GridUtils.RowDefinitions=",,">
+                <Path Data="m 0,0 l 0,16 l 16,0 l -16,-16"
+                        Fill="#5536d1"
+                        Margin="5,0,0,-1"
+                        HorizontalAlignment="Left"/>
+                <Rectangle Fill="#5536d1"
+                             Grid.Row="1" Grid.RowSpan="2"/>
+                <TextBox Text="{Binding Path=Text}"
+                             Style="{StaticResource TextBlockStyle}" Background="#5536d1"
+                             Grid.Row="1"/>
+                <TextBlock Text="{Binding Path=Timestamp, Converter={StaticResource StringFormatConverter}, ConverterParameter='ddd, HH:mm'}"
+                             Style="{StaticResource TimestampStyle}"
+                             Grid.Row="2"/>
+            </Grid>
+        </DataTemplate>
+        <!--You under you-->
+        <DataTemplate x:Key="C">
+            <Grid Margin="5, 15, 30, 0" 
+                      local:GridUtils.RowDefinitions=",,">
+                <Path Data="m 0,0 l 0,16 l 16,0 l -16,-16"
+                        Fill="#03a9F4"
+                        Margin="5,0,0,-1"
+                        HorizontalAlignment="Left"/>
+                <Rectangle Fill="#03a9F4"
+                             Grid.Row="1" Grid.RowSpan="2"/>
+                <TextBox Text="{Binding Path=Text}"
+                             Style="{StaticResource TextBlockStyle}" Background="#03a9F4"
+                             Grid.Row="1"/>
+                <TextBlock Text="{Binding Path=Timestamp, Converter={StaticResource StringFormatConverter}, ConverterParameter='ddd, HH:mm'}"
+                             Style="{StaticResource TimestampStyle}"
+                             Grid.Row="2"/>
+            </Grid>
+        </DataTemplate>
+        <!--Me under me-->
+        <DataTemplate x:Key="D">
+            <Grid Margin="30, 15, 5, 0"
+                      local:GridUtils.RowDefinitions=",,">
+                <Rectangle Fill="#5536d1"
+                           Grid.RowSpan="2"/>
+                <TextBox Text="{Binding Path=Text}"
+                             Style="{StaticResource TextBlockStyle}" Background="#5536d1"/>
+                <TextBlock Text="{Binding Path=Timestamp, Converter={StaticResource StringFormatConverter}, ConverterParameter='ddd, HH:mm'}"
+                             Style="{StaticResource TimestampStyle}"
+                             Grid.Row="1"/>
+                <Path Data="m 0,0 l 16,0 l 0,16 l -16,-16"
+                    Fill="#5536d1"
+                    Margin="0,-1,5,0"           
+                    HorizontalAlignment="Right"
+                    Grid.Row="2"/>
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot" Background="White">
+        <ItemsControl ItemsSource="{Binding}">
+            <ItemsControl.ItemTemplateSelector>
+                <local:MessageTemplateSelector
+                A="{StaticResource A}"
+                B="{StaticResource B}"
+                C="{StaticResource C}"
+                D="{StaticResource D}"/>
+            </ItemsControl.ItemTemplateSelector>
+        </ItemsControl>
+    </Grid>
+
+</UserControl>
